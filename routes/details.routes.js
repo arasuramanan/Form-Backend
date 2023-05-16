@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.get('/details', async(req, res) => {
     try {
-        const detail = await Details.find.toArray();
+        const detail = await Details.find();
         res.send(detail);
     } catch (error) {
         return res.status(400).json({ error });
