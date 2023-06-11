@@ -6,6 +6,7 @@ const cors = require('cors');
 //import routes
 const app = express();
 const detailRoutes = require('./routes/detailsRoutes');
+const userRoutes = require('./routes/userRoutes');
 
 
 //Connecting DB
@@ -26,6 +27,7 @@ app.get('/', function (req, res) {
 
 
 app.use('/api', detailRoutes);
+app.use('/register', userRoutes);
 
 
 const PORT = process.env.PORT || 4000;

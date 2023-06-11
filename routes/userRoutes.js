@@ -4,22 +4,17 @@ const collection = require('../models/user');
 const router = express.Router();
 
 
-router.post("/", async(req, res)=>{
-    const{email, password}=req.body
-    const data={
-        email: email,
-        password: password
-    };
-  
+router.post("/login", async(req, res)=>{
+    const{email, password} = req.body;
+
     try{
-        const check=await collection.findOne({email:email});
+        const check = await collection.findOne({email:email});
   
-        if(check){
-            res.json("exist");
+        if(!check){
+            res.json("User Not Register");
         }
         else{
-            await collection.insertMany([data]);
-            res.json("notexist");
+            res.json(check.email);
         }
   
     }
@@ -34,10 +29,7 @@ router.post("/", async(req, res)=>{
   router.post("/signup",async(req, res)=>{
     const{email, password} = req.body;
   
-    const data={
-        email: email,
-        password: password
-    };
+
   
     try{
         const check = await collection.findOne({email: email});
@@ -46,8 +38,8 @@ router.post("/", async(req, res)=>{
             res.json("exist");
         }
         else {
-            await collection.insertMany([data]);
-            res.json("notexist");
+           const data = await collection.create({email, password});
+            res.json(data);
         }
   
     }
